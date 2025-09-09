@@ -11,7 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -54,6 +56,17 @@ public class UserService {
         log.info("사용자 등록 완료: {}", savedUser.getUserId());
         
         return UserResponse.from(savedUser);
+    }
+    
+    /**
+     * 모든 사용자 조회
+     * @return 모든 사용자 목록
+     */
+    public List<UserResponse> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(UserResponse::from)
+                .collect(Collectors.toList());
     }
     
     /**
