@@ -4,10 +4,12 @@ server:
 spring:
   application:
     name: user-service
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/user_db?serverTimezone=UTC&useSSL=false}
-    username: ${SPRING_DATASOURCE_USERNAME:user-service_user}
-    password: ${SPRING_DATASOURCE_PASSWORD:Password@}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -20,6 +22,15 @@ spring:
   sql: 
     init:
       mode: never
+
+# Azure OpenAI Service 설정
+llm:
+  azure-openai:
+    api-key: ${AZURE_OPENAI_API_KEY}
+    endpoint: ${AZURE_OPENAI_ENDPOINT}
+    deployment-name: ${AZURE_OPENAI_DEPLOYMENT}
+    api-version: ${AZURE_OPENAI_API_VERSION}
+    timeout: ${AZURE_OPENAI_TIMEOUT}
 
 management:
   endpoints:

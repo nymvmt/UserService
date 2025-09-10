@@ -1,9 +1,12 @@
 package com.example.user.controller;
 
 import com.example.user.dto.ApiResponse;
+import com.example.user.dto.NicknameGenerateRequest;
+import com.example.user.dto.NicknameGenerateResponse;
 import com.example.user.dto.UserCreateRequest;
 import com.example.user.dto.UserLoginRequest;
 import com.example.user.dto.UserResponse;
+import com.example.user.service.NicknameService;
 import com.example.user.service.UserService;
 
 import java.util.List;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     
     private final UserService userService;
+    private final NicknameService nicknameService;
     
     /**
      * 모든 사용자 조회
@@ -134,4 +138,22 @@ public class UserController {
                     .body(ApiResponse.error("서버 오류가 발생했습니다"));
         }
     }
+    
+    /**
+     * 닉네임 생성 (단일 닉네임 재시도 방식)
+     * POST /users/nickname/generate
+     */
+    @PostMapping("/nickname/generate")
+    public ResponseEntity<ApiResponse<NicknameGenerateResponse>> generateNickname(
+            @Valid @RequestBody NicknameGenerateRequest request) {
+        try {
+            NicknameGenerateResponse response = nicknameService.generateNickname(request);
+            return ResponseEntity.ok(ApiResponse.success("닉네임이 생성되었습니다", response));
+        } catch (Exception e) {
+            log.error("닉네임 생성 중 오류 발생", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error("닉네임 생성 중 오류가 발생했습니다"));
+        }
+    }
+    
 }
