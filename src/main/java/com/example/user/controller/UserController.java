@@ -5,6 +5,7 @@ import com.example.user.dto.NicknameGenerateRequest;
 import com.example.user.dto.NicknameGenerateResponse;
 import com.example.user.dto.UserCreateRequest;
 import com.example.user.dto.UserLoginRequest;
+import com.example.user.dto.UserLogoutRequest;
 import com.example.user.dto.UserResponse;
 import com.example.user.service.NicknameService;
 import com.example.user.service.UserService;
@@ -128,9 +129,9 @@ public class UserController {
      * POST /users/logout
      */
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Void>> logout(@RequestParam String userId) {
+    public ResponseEntity<ApiResponse<Void>> logout(@Valid @RequestBody UserLogoutRequest request) {
         try {
-            userService.logout(userId);
+            userService.logout(request.getUserId());
             return ResponseEntity.ok(ApiResponse.success("로그아웃이 성공했습니다", null));
         } catch (Exception e) {
             log.error("로그아웃 중 오류 발생", e);
