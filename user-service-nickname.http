@@ -1,0 +1,44 @@
+### Generate Nickname API Test
+
+@baseUrl = https://kt-pj2-user-app-bhcda0cqecgvg7bq.koreacentral-01.azurewebsites.net/
+
+# 닉네임 생성 - 기본 요청
+POST {{baseUrl}}/users/nickname/generate
+Content-Type: application/json
+
+{
+  "username": "홍길동",
+  "interests": "커피, 독서, 여행"
+}
+
+###
+
+# 닉네임 생성 - 관심사 없이
+POST {{baseUrl}}/users/nickname/generate
+Content-Type: application/json
+
+{
+  "username": "김철수"
+}
+
+###
+
+# 닉네임 생성 - 다양한 관심사
+POST {{baseUrl}}/users/nickname/generate
+Content-Type: application/json
+
+{
+  "username": "이영희",
+  "interests": "게임, 스포츠, 음악, 영화"
+}
+
+###
+
+# 닉네임 생성 - IT 관심사
+POST {{baseUrl}}/users/nickname/generate
+Content-Type: application/json
+
+{
+  "username": "박개발",
+  "interests": "프로그래밍, 기술, AI, 클라우드"
+}

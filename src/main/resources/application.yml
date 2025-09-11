@@ -23,14 +23,11 @@ spring:
     init:
       mode: never
 
-# Azure OpenAI Service 설정
-llm:
-  azure-openai:
-    api-key: ${AZURE_OPENAI_API_KEY}
-    endpoint: ${AZURE_OPENAI_ENDPOINT}
-    deployment-name: ${AZURE_OPENAI_DEPLOYMENT}
-    api-version: ${AZURE_OPENAI_API_VERSION}
-    timeout: ${AZURE_OPENAI_TIMEOUT}
+# Python 닉네임 서비스 설정
+python:
+  nickname-service:
+    url: ${PYTHON_NICKNAME_SERVICE_URL:http://nickname-service-python:8088}
+    timeout: ${PYTHON_NICKNAME_SERVICE_TIMEOUT:30}
 
 management:
   endpoints:
