@@ -40,8 +40,11 @@ public class AzureOpenAIClient {
             
             Map<String, Object> requestBody = createRequestBody(prompt);
             
-            String uri = String.format("/openai/deployments/%s/chat/completions?api-version=%s",
+            String uri = String.format("https://kt-pj2-nicknamegenerator-openai.services.ai.azure.com/api/projects/AIFoundryProject/openai/deployments/%s/chat/completions?api-version=%s",
                     azureConfig.getDeploymentName(), azureConfig.getApiVersion());
+            
+            // String uri = String.format("/openai/deployments/%s/chat/completions?api-version=%s",
+            //         azureConfig.getDeploymentName(), azureConfig.getApiVersion());
             
             log.info("Azure OpenAI API 호출 - URI: {}, Deployment: {}", uri, azureConfig.getDeploymentName());
             
